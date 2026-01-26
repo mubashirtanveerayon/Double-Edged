@@ -1,8 +1,11 @@
-extends Spawner
-signal all_spawned
+extends EnemySpawner
+signal all_dead
 
 func spawn():
 	super.spawn()
 	if count >= max_count:
 		enabled=false
-		all_spawned.emit()
+func on_object_tree_exiting():
+	super.on_object_tree_exiting()
+	if count <= 0:
+		all_dead.emit()

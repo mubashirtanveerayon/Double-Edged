@@ -14,3 +14,13 @@ func _process(delta: float) -> void:
 		if $AnimatedSprite2D.animation == "idle":
 			$AnimatedSprite2D.play("run")
 		$AnimatedSprite2D.flip_h = velocity.x < 0
+
+func destroy():
+	BloodAnimation.play(2,global_position)
+	
+	
+	super.destroy()
+	
+func _on_character_took_damage(damage_dealt: Variant) -> void:
+	if not $AudioStreamPlayer2D.playing:
+		$AudioStreamPlayer2D.play()

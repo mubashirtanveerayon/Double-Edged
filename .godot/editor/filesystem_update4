@@ -30,3 +30,8 @@ res://utils/misc/enemy_follow_state.tscn
 res://enemies/toxic_enemy/toxic_enemy.tscn
 res://utils/necromancer_spawner.gd
 res://main/wave_4.gd
+res://utils/enemy_spawner.gd
+res://ui/gameoverscreen.tscn
+res://main/main.gd
+res://player/player.tscn
+res://player/player.gd

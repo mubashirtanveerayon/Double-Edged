@@ -1,3 +1,4 @@
+AudioStreamPlayer2D
 Marker2D
 Timer
 Spawner
@@ -11,4 +12,3 @@ StaticBody2D
 AnimationPlayer
 HealthSystem
 Node2D
-Handheld

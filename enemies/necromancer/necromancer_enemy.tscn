@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://eu6aljdf8e2w"]
+[gd_scene load_steps=22 format=3 uid="uid://eu6aljdf8e2w"]
 
 [ext_resource type="PackedScene" uid="uid://cmm24di1rjl62" path="res://enemies/enemy.tscn" id="1_oeikt"]
 [ext_resource type="Script" uid="uid://bq3ufb1f0xnhp" path="res://enemies/necromancer/necromancer_enemy_state_machine.gd" id="2_cxpol"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://dnc4is0nxk0mb" path="res://enemies/necromancer/necromancer_bullet_spawner.gd" id="8_6kmqi"]
 [ext_resource type="PackedScene" uid="uid://7o5jgm7cl4aj" path="res://utils/projectile/necromancer_projectile/necromancer_bullet.tscn" id="8_lnir2"]
 [ext_resource type="Script" uid="uid://cl2euqkmdpgpg" path="res://utils/knockback_system.gd" id="9_f3wii"]
+[ext_resource type="AudioStream" uid="uid://dgbp871j60g2n" path="res://assets/audio/enemy_hurt.mp3" id="16_bc2qm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lnir2"]
 size = Vector2(11, 14)
@@ -151,6 +152,10 @@ shape = SubResource("RectangleShape2D_bc2qm")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="5"]
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_4c86a")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="6"]
+stream = ExtResource("16_bc2qm")
+volume_db = -5.0
 
 [connection signal="area_entered" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_entered"]
 [connection signal="area_exited" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_exited"]
