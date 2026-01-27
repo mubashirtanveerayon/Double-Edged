@@ -10,7 +10,7 @@ colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.49803922, 0, 0, 0, 0.6039216)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_d2nv2"]
 gradient = SubResource("Gradient_cmhrf")
 
-[node name="Control" type="Control"]
+[node name="mainmenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

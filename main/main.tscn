@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8v6bs8a5ljms"]
+[gd_scene load_steps=15 format=3 uid="uid://b8v6bs8a5ljms"]
 
 [ext_resource type="Script" uid="uid://gmb4u7pk0wf4" path="res://main/main.gd" id="1_4dugh"]
 [ext_resource type="PackedScene" uid="uid://cn5kpnnlktoyk" path="res://player/player.tscn" id="1_53q0u"]
@@ -26,6 +26,13 @@ _bundled = {
 ", 1, 2],
 "version": 3
 }
+
+[sub_resource type="Environment" id="Environment_fwcvl"]
+background_mode = 3
+adjustment_enabled = true
+adjustment_brightness = 0.8
+adjustment_contrast = 1.15
+adjustment_saturation = 1.05
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("waves", "individual") groups=["world"]]
 script = ExtResource("1_4dugh")
@@ -251,6 +258,7 @@ position = Vector2(-142, 410)
 position = Vector2(758, 423)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fwcvl")
 
 [connection signal="destroyed" from="Player" to="." method="_on_player_destroyed"]
 [connection signal="timeout" from="UI/HUD/Timer" to="UI" method="_on_timer_timeout"]
