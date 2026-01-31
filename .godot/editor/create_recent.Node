@@ -1,7 +1,7 @@
-Label
-AudioStreamPlayer2D
 CPUParticles2D
 PointLight2D
+Label
+AudioStreamPlayer2D
 LightOccluder2D
 AudioStreamPlayer
 AnimatedSprite2D

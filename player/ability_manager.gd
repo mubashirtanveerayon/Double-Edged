@@ -22,7 +22,7 @@ func on_ability_cooldown_time_changed():
 func try_use_shockwave():
 	if Global.points >= Global.points_req_for_alt:
 		Global.points -= Global.points_req_for_alt
-		Global.points_req_for_alt += 100
+		Global.points_req_for_alt *= 2
 		var sw = shockwave_scene.instantiate()
 		sw.global_position = global_position 
 		get_tree().get_first_node_in_group("world").add_child(sw)

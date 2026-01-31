@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bbp80p4bbfta"]
+[gd_scene load_steps=26 format=3 uid="uid://bbp80p4bbfta"]
 
 [ext_resource type="PackedScene" uid="uid://cmm24di1rjl62" path="res://enemies/enemy.tscn" id="1_wyepx"]
 [ext_resource type="Script" uid="uid://mbw7h7svxa6b" path="res://enemies/toxic_enemy/toxic_enemy.gd" id="2_f1jv2"]
@@ -14,8 +14,9 @@
 [ext_resource type="Script" uid="uid://bplf4tq6e6dbo" path="res://enemies/toxic_enemy/release_toxin_state.gd" id="11_nlgds"]
 [ext_resource type="Script" uid="uid://dy7igu8db5npn" path="res://enemies/toxic_enemy/toxic_enemy_state_machine.gd" id="11_nt1l5"]
 [ext_resource type="Script" uid="uid://b4rj3kycwhmkm" path="res://utils/health_system.gd" id="12_fermb"]
-[ext_resource type="PackedScene" uid="uid://c6fay5h10aicy" path="res://utils/misc/enemy_follow_state.tscn" id="13_f1jv2"]
-[ext_resource type="Script" uid="uid://dwoy1n2g7dkdt" path="res://enemies/toxic_enemy/toxic_enemy_follow_state.gd" id="15_evofo"]
+[ext_resource type="PackedScene" uid="uid://cmtbdeq5lnjsv" path="res://utils/misc/surround_state.tscn" id="15_nfv83"]
+[ext_resource type="Script" uid="uid://d0yg3g6edf4ri" path="res://enemies/toxic_enemy/toxic_enemy_surround_state.gd" id="16_6cke4"]
+[ext_resource type="Texture2D" uid="uid://b7jx5pkqmki3o" path="res://assets/light.png" id="17_6cke4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6cke4"]
 resource_local_to_scene = true
@@ -64,14 +65,14 @@ animations = [{
 size = Vector2(7, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1jv2"]
-radius = 30.0
+radius = 15.0
 
-[sub_resource type="Curve" id="Curve_fermb"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.75624377, 0.00052785873), 0.0, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="Curve" id="Curve_nfv83"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0.0077922046, 1.0975856), 0.0, 0.0, 0, 0, Vector2(0.24675323, 1.3184464), 0.0, 0.0, 0, 0, Vector2(0.75064933, 0.15593576), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nt1l5"]
-radius = 20.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pwhy8"]
 radius = 4.0
@@ -92,6 +93,7 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="HealthSystem" parent="." index="1"]
+visible = false
 collision_layer = 2
 can_take_damage = true
 can_deal_damage = true
@@ -111,7 +113,7 @@ friction = 800.0
 
 [node name="EnemyStateMachine" parent="." index="3" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("11_nt1l5")
-initial_state = NodePath("FollowState")
+initial_state = NodePath("SurroundState")
 
 [node name="ReleaseToxin" type="Node2D" parent="EnemyStateMachine" index="0"]
 script = ExtResource("11_nlgds")
@@ -134,27 +136,32 @@ shape = SubResource("CircleShape2D_f1jv2")
 one_shot = true
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="EnemyStateMachine/ReleaseToxin" index="2"]
-visible = false
-amount = 50
-lifetime = 0.7
+emitting = false
+amount = 20
+lifetime = 0.3
+one_shot = true
 explosiveness = 1.0
 emission_shape = 1
-emission_sphere_radius = 30.0
+emission_sphere_radius = 15.0
+direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 0)
 scale_amount_max = 2.0
-scale_amount_curve = SubResource("Curve_fermb")
-color = Color(0.7647059, 0, 0, 1)
+scale_amount_curve = SubResource("Curve_nfv83")
+color = Color(0.12941177, 0.69803923, 0.39215687, 1)
 
 [node name="PlayerDetector" type="Area2D" parent="EnemyStateMachine" index="1"]
+visible = false
 collision_layer = 0
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyStateMachine/PlayerDetector" index="0"]
 shape = SubResource("CircleShape2D_nt1l5")
 
-[node name="FollowState" parent="EnemyStateMachine" index="2" instance=ExtResource("13_f1jv2")]
-script = ExtResource("15_evofo")
+[node name="SurroundState" parent="EnemyStateMachine" index="2" instance=ExtResource("15_nfv83")]
+script = ExtResource("16_6cke4")
+target_surround_radius = 12.0
+avoid_player = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
 position = Vector2(1, 1)
@@ -162,6 +169,10 @@ shape = SubResource("CapsuleShape2D_pwhy8")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." index="5"]
 occluder = SubResource("OccluderPolygon2D_nfv83")
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="6"]
+energy = 0.1
+texture = ExtResource("17_6cke4")
 
 [connection signal="timeout" from="EnemyStateMachine/ReleaseToxin/Timer" to="EnemyStateMachine/ReleaseToxin" method="_on_timer_timeout"]
 [connection signal="area_entered" from="EnemyStateMachine/PlayerDetector" to="EnemyStateMachine" method="_on_player_detector_area_entered"]

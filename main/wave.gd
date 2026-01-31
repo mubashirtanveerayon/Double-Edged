@@ -31,7 +31,7 @@ func enter():
 		spawner.enabled=true
 	$Timer.wait_time=time_in_minutes*60
 	$Timer.start()
-	Global.wave_number=wave_number
+	#Global.wave_number=wave_number
 	
 
 func on_wave_timer_finished():

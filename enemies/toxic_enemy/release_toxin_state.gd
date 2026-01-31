@@ -19,7 +19,9 @@ func enter():
 	movement_component.enabled=false
 	$"../../AnimatedSprite2D".play("idle")
 	super.enter()
-	$CPUParticles2D.show()
+	#$CPUParticles2D.show()
+	$CPUParticles2D.one_shot=false
+	$CPUParticles2D.emitting=true
 	$HealthSystem.enable()
 	$Timer.start()
 
@@ -35,5 +37,7 @@ func _on_timer_timeout() -> void:
   
 func exit():
 	$HealthSystem.disable()
-	$CPUParticles2D.hide()
+	#$CPUParticles2D.hide()
+	$CPUParticles2D.one_shot=true
+	$CPUParticles2D.emitting=false
 	super.exit()
