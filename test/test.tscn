@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c0rsfhevgnt5a" path="res://main/tilemaplayers.tscn" id="1_65205"]
 [ext_resource type="PackedScene" uid="uid://cn5kpnnlktoyk" path="res://player/player.tscn" id="1_syuel"]
-[ext_resource type="PackedScene" uid="uid://bbp80p4bbfta" path="res://enemies/toxic_enemy/toxic_enemy.tscn" id="2_8a8pi"]
+[ext_resource type="PackedScene" uid="uid://eu6aljdf8e2w" path="res://enemies/necromancer/necromancer_enemy.tscn" id="3_65205"]
 
 [node name="test" type="Node2D" groups=["world"]]
 
@@ -11,5 +11,4 @@
 [node name="Player" parent="." instance=ExtResource("1_syuel")]
 position = Vector2(53, 40)
 
-[node name="ToxicEnemy" parent="." instance=ExtResource("2_8a8pi")]
-position = Vector2(31, 38)
+[node name="NecromancerEnemy" parent="." instance=ExtResource("3_65205")]

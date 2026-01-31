@@ -1,5 +1,5 @@
-res://main/main.tscn
+res://ui/mainmenu.tscn
 res://shaders/flash.gdshader
 res://player_ultimate/Shockwave.gdshader
 res://shaders/wizard_bullet.gdshader
-res://utils/CardDatabase.gd
+res://ui/mainmenu.gd

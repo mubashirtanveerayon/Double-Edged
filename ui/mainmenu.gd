@@ -6,6 +6,7 @@ extends Control
 func _on_play_button_pressed() -> void:
 	Global.points=0
 	Global.deck.clear()
+	Global.points_req_for_alt=200
 	get_tree().change_scene_to_file("res://main/main.tscn")
 
 

@@ -5,6 +5,7 @@
 
 [node name="Mouse" type="CanvasLayer"]
 process_mode = 3
+layer = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(3, 3)
